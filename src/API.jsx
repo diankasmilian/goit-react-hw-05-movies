@@ -19,3 +19,11 @@ export const getSearchMovies = async (value) => {
    })
    return data
 }
+
+export const getMovieDetails = async (id) => {
+   const {data} = await moviesApi.get(`/movie/${id}?language=en-US`, {
+      params: {api_key: KEY },
+   })
+   return data
+}
+
