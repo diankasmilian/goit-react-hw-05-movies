@@ -9,14 +9,13 @@ const Reviews = () => {
   useEffect(() => {
     const getReviewsAPI = async id => {
       const { results } = await getReviews(id);
-      console.log(results);
       setReviews(results);
     };
     getReviewsAPI(movieId);
   }, [movieId]);
 
   return reviews === [] ? (
-    'Sory'
+    'Sory, we don`t have reviews'
   ) : (
     <ul>
       {reviews.map(review => (
