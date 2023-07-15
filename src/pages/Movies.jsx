@@ -35,11 +35,11 @@ const Movies = () => {
       setMovies([])
     };
 return (
-   <main>
+   <div>
       <SearchMovies onSubmit={handleFormSubmit}/>
       <SearchMoviesList movies={movies}/>
       <ToastContainer position="top-center" autoClose={2000} />
-   </main>
+   </div>
    
 )
 }

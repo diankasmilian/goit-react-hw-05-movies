@@ -5,9 +5,9 @@ const Home = () => {
 const movies = getTrendMovies();
 
 return (
-   <main>
+   <div>
      <MoviesList movies={movies}/>
-   </main>
+   </div>
 )
 }
 

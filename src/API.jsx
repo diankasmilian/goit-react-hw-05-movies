@@ -27,3 +27,16 @@ export const getMovieDetails = async (id) => {
    return data
 }
 
+export const getCast = async (id) => {
+   const {data} = await moviesApi.get(`movie/${id}/credits`, {
+      params: {api_key: KEY },
+   })
+   return data
+}
+
+export const getReviews = async (id) => {
+   const {data} = await moviesApi.get(`movie/${id}/reviews`, {
+      params: {api_key: KEY },
+   })
+   return data
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { getMovieDetails } from 'API';
 
 const MovieDetails = () => {
@@ -10,7 +10,6 @@ const MovieDetails = () => {
     const movieDetailsAPI = async id => {
       try {
         const data = await getMovieDetails(id);
-        console.log(data);
         setData(data);
       } catch (error) {
         console.log(error);
@@ -48,13 +47,23 @@ const MovieDetails = () => {
           <p>{data.overview}</p>
 
           <h2>Genres</h2>
-          {data.genres !== undefined ? (
+          {data.genres ? (
             <p>{data.genres.map(genre => genre.name).join(' ')}</p>
           ) : (
             <p>No genres available</p>
           )}
         </div>
       </div>
+      <h2>Additional information</h2>
+      <ul>
+        <li>
+          <Link to='cast'>Cast</Link>
+        </li>
+        <li>
+          <Link to='reviews'>Reviews</Link>
+        </li>
+      </ul>
+      <Outlet/>
     </div>
   );
 };
