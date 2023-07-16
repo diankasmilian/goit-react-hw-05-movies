@@ -1,14 +1,14 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, Suspense } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'API';
-import { BsChevronLeft } from "react-icons/bs";
+import { BsChevronLeft } from 'react-icons/bs';
 import { Button, InfoContainer, Container } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const [data, setData] = useState({});
   const { movieId } = useParams();
   const location = useLocation();
-  const backLinkLocation = useRef(location.state?.from ?? '/movies')
+  const backLinkLocation = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const movieDetailsAPI = async id => {
@@ -29,7 +29,9 @@ const MovieDetails = () => {
 
   return (
     <Container>
-      <Button to={backLinkLocation.current} ><BsChevronLeft /></Button>
+      <Button to={backLinkLocation.current}>
+        <BsChevronLeft />
+      </Button>
 
       <InfoContainer>
         <img
@@ -61,17 +63,17 @@ const MovieDetails = () => {
       <h2>Additional information</h2>
       <ul>
         <li>
-          <Link to='cast'>Cast</Link>
+          <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to='reviews'>Reviews</Link>
+          <Link to="reviews">Reviews</Link>
         </li>
       </ul>
-      <Outlet/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </Container>
   );
 };
 
 export default MovieDetails;
-
-
