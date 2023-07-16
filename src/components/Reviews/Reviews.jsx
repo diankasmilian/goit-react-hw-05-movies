@@ -15,7 +15,7 @@ const Reviews = () => {
   }, [movieId]);
 
   return reviews === [] ? (
-    'Sory, we don`t have reviews'
+    <p>'Sory, we don`t have reviews'</p>
   ) : (
     <ul>
       {reviews.map(review => (
