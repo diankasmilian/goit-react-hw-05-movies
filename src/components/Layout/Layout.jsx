@@ -1,21 +1,20 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import { Navigation, NavList } from './Layout.styled';
 
 const Layout = () => {
-return (
-   <div>
+  return (
+    <div>
       <header>
-      <nav>
-        <NavLink to='/'>Home</NavLink>
-        <NavLink to='/movies'>Movies</NavLink>
-      </nav>
+        <NavList>
+          <Navigation to="/">Home</Navigation>
+          <Navigation to="/movies">Movies</Navigation>
+        </NavList>
       </header>
-     
+
       <main>
-      <Outlet/>
+        <Outlet />
       </main>
-      
-   </div>
-   
-)
-}
+    </div>
+  );
+};
 export default Layout;

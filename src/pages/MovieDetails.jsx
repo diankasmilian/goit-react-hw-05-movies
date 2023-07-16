@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'API';
+import { BsChevronLeft } from "react-icons/bs";
+import { Button, InfoContainer, Container } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const [data, setData] = useState({});
@@ -26,10 +28,10 @@ const MovieDetails = () => {
   const userScore = data.vote_average * 10;
 
   return (
-    <div>
-      <Link to={backLinkLocation.current} >Back</Link>
+    <Container>
+      <Button to={backLinkLocation.current} ><BsChevronLeft /></Button>
 
-      <div>
+      <InfoContainer>
         <img
           src={
             data.poster_path
@@ -55,7 +57,7 @@ const MovieDetails = () => {
             <p>No genres available</p>
           )}
         </div>
-      </div>
+      </InfoContainer>
       <h2>Additional information</h2>
       <ul>
         <li>
@@ -66,8 +68,10 @@ const MovieDetails = () => {
         </li>
       </ul>
       <Outlet/>
-    </div>
+    </Container>
   );
 };
 
 export default MovieDetails;
+
+

@@ -9,6 +9,7 @@ const Home = () => {
 useEffect(() => {
   const moviesTrand = async () => {
     const { results } = await getTrendMovies();
+    console.log(results)
     setMoviesArray(results);
   };
   moviesTrand();
