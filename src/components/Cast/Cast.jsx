@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCast } from 'API';
+import { List, Item, Name, Charaster } from './Cast.styled';
 
 const Cast = () => {
   const [actors, setActors] = useState([]);
@@ -18,9 +19,9 @@ const Cast = () => {
     'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
   return (
-    <ul>
+    <List>
       {actors.map(actor => (
-        <li key={actor.id}>
+        <Item key={actor.id}>
           <img
             src={
               actor.profile_path
@@ -30,11 +31,13 @@ const Cast = () => {
             alt={actor.original_name}
             width='250'
           />
-          <h3>{actor.original_name}</h3>
-          <p>Character: {actor.character}</p>
-        </li>
+          <Name>{actor.original_name}</Name>
+          <Charaster>Character: {actor.character}</Charaster>
+          
+          
+        </Item>
       ))}
-    </ul>
+    </List>
   );
 };
 
