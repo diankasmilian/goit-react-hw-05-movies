@@ -62,7 +62,7 @@ const MovieDetails = () => {
           <Text>{data.overview}</Text>
 
           <SecondTitle>Genres</SecondTitle>
-          {data.genres.length !== 0 ? (
+          {data.genres ? (
             <Text>{data.genres.map(genre => genre.name).join(' ')}</Text>
           ) : (
             <Text>No genres available</Text>
