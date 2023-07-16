@@ -2,7 +2,16 @@ import { useEffect, useState, useRef, Suspense } from 'react';
 import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'API';
 import { BsChevronLeft } from 'react-icons/bs';
-import { Button, InfoContainer, Container, Title, Text, SecondTitle, List, Info } from './MovieDetails.styled';
+import {
+  Button,
+  InfoContainer,
+  Container,
+  Title,
+  Text,
+  SecondTitle,
+  List,
+  Info,
+} from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const [data, setData] = useState({});
@@ -53,7 +62,7 @@ const MovieDetails = () => {
           <Text>{data.overview}</Text>
 
           <SecondTitle>Genres</SecondTitle>
-          {data.genres ? (
+          {data.genres.length !== 0 ? (
             <Text>{data.genres.map(genre => genre.name).join(' ')}</Text>
           ) : (
             <Text>No genres available</Text>
