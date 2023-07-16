@@ -29,12 +29,14 @@ const Cast = () => {
                 : defaultImg
             }
             alt={actor.original_name}
-            width='250'
+            width="250"
           />
           <Name>{actor.original_name}</Name>
-          <Charaster>Character: {actor.character}</Charaster>
-          
-          
+          {actor.character.length !== 0 ? (
+            <Charaster>Character: {actor.character}</Charaster>
+          ) : (
+            <Charaster>Unknown</Charaster>
+          )}
         </Item>
       ))}
     </List>
