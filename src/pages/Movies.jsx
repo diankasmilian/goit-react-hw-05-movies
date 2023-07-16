@@ -1,5 +1,6 @@
 import { SearchMovies } from "components/SearchMovies/SearchMovies";
-import { SearchMoviesList } from "components/SearchMovies/SearchMoviesList";
+import { MoviesList } from "components/MoviesList/MoviesList";
+// import { SearchMoviesList } from "components/SearchMovies/SearchMoviesList";
 import { useState, useEffect } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,7 +17,7 @@ const Movies = () => {
          const {results, total_results} = await getSearchMovies(value)
          
          if (total_results === 0) {
-            toast.error('😥OOPS... undefined image')
+            toast.error('😥OOPS... undefined movie')
             return;
           }
 
@@ -37,7 +38,7 @@ const Movies = () => {
 return (
    <div>
       <SearchMovies onSubmit={handleFormSubmit}/>
-      <SearchMoviesList movies={movies}/>
+      <MoviesList movies={movies}/>
       <ToastContainer position="top-center" autoClose={2000} />
    </div>
    

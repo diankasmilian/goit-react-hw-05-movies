@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 export const MoviesList = ({ movies }) => {
-  const [moviesArray, setMoviesArray] = useState([]);
-
-  useEffect(() => {
-    const moviesTrand = async () => {
-      const { results } = await movies;
-      setMoviesArray(results);
-    };
-    moviesTrand();
-  }, [movies]);
+  const location = useLocation();
 
   return (
     <ul>
-      {moviesArray.map(movie => (
+      {movies.map(movie => (
         <li key={movie.id}>
-          <Link to={`movies/${movie.id}`}>{movie.title || movie.name}</Link>
+          <Link to={`/movies/${movie.id}`} state={{ from: location }}>
+            {movie.title || movie.name}
+          </Link>
         </li>
-        
       ))}
     </ul>
   );
 };
 
+
 MoviesList.propTypes = {
-  movies: PropTypes.object.isRequired,
-};
+  movies: PropTypes.arrayOf(
+     PropTypes.shape({
+       id: PropTypes.number.isRequired,
+       title: PropTypes.string,
+       name: PropTypes.string,
+     })
+   ).isRequired,
+    }

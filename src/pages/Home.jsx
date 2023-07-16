@@ -1,12 +1,23 @@
 import { getTrendMovies } from "API";
+import { useEffect, useState } from 'react';
 import { MoviesList } from "components/MoviesList/MoviesList";
 
 const Home = () => {
-const movies = getTrendMovies();
+  const [moviesArray, setMoviesArray] = useState([]);
+// const movies = getTrendMovies();
+
+useEffect(() => {
+  const moviesTrand = async () => {
+    const { results } = await getTrendMovies();
+    setMoviesArray(results);
+  };
+  moviesTrand();
+}, []);
+
 
 return (
    <div>
-     <MoviesList movies={movies}/>
+     <MoviesList movies={moviesArray}/>
    </div>
 )
 }

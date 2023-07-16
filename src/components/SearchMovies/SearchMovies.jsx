@@ -1,24 +1,28 @@
 import { BsSearch } from 'react-icons/bs';
-import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useSearchParams } from 'react-router-dom';
 
 export const SearchMovies = ({onSubmit}) => {
-const [value, setValue] = useState('')
+const [searchParams, setSearchParams] = useSearchParams();
+const query = searchParams.get('query') ?? '';
 
 const handleValueChange = e => {
-   setValue(e.target.value);
+  if(e.target.value === '') {
+    return  setSearchParams({})
+  }
+  setSearchParams({query: e.target.value});
  };
 
  const handleSubmit = e => {
    e.preventDefault();
 
-   if (value.trim() === "") {
+   if (searchParams === "") {
      toast.error('Enter a value');
+    
      return;
    }
-
-   onSubmit(value);
-   setValue('');
+   onSubmit(query);
+   
  };
 
 
@@ -26,7 +30,7 @@ const handleValueChange = e => {
     <form onSubmit={handleSubmit}>
       <input
         className="input"
-        value={value}
+        value={query}
         onChange={handleValueChange}
         type="text"
         autoComplete="off"
