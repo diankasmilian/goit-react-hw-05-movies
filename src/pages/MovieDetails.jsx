@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef, Suspense } from 'react';
-import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'API';
 import { BsChevronLeft } from 'react-icons/bs';
-import { Button, InfoContainer, Container } from './MovieDetails.styled';
+import { Button, InfoContainer, Container, Title, Text, SecondTitle, List, Info } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const [data, setData] = useState({});
@@ -45,30 +45,30 @@ const MovieDetails = () => {
         />
 
         <div>
-          <h1>{data.title}</h1>
+          <Title>{data.title}</Title>
 
-          <p>User score: {userScore}%</p>
+          <Text>User score: {userScore}%</Text>
 
-          <h2>Overview</h2>
-          <p>{data.overview}</p>
+          <SecondTitle>Overview</SecondTitle>
+          <Text>{data.overview}</Text>
 
-          <h2>Genres</h2>
+          <SecondTitle>Genres</SecondTitle>
           {data.genres ? (
-            <p>{data.genres.map(genre => genre.name).join(' ')}</p>
+            <Text>{data.genres.map(genre => genre.name).join(' ')}</Text>
           ) : (
-            <p>No genres available</p>
+            <Text>No genres available</Text>
           )}
         </div>
       </InfoContainer>
       <h2>Additional information</h2>
-      <ul>
+      <List>
         <li>
-          <Link to="cast">Cast</Link>
+          <Info to="cast">Cast</Info>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <Info to="reviews">Reviews</Info>
         </li>
-      </ul>
+      </List>
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>
