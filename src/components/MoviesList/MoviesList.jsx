@@ -16,7 +16,7 @@ export const MoviesList = ({ movies }) => {
             <img
               src={
                 movie.poster_path
-                  ? `https:image.tmdb.org/t/p/w500/${movie.poster_path}`
+                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
                   : defaultImg
               }
               alt={movie.title || movie.name}
@@ -36,6 +36,7 @@ MoviesList.propTypes = {
       id: PropTypes.number.isRequired,
       title: PropTypes.string,
       name: PropTypes.string,
+      poster_path: PropTypes.string
     })
   ).isRequired,
 };

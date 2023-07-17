@@ -6,15 +6,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getSearchMovies } from 'API';
 import { toast } from 'react-toastify';
 import { useSearchParams } from 'react-router-dom';
+import { Loader } from 'components/Loader/Loader';
 
 const Movies = () => {
-  const [value, setValue] = useState('');
   const [movies, setMovies] = useState([]);
+  const [isLoader, setIsLoader] = useState(false);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
 
   useEffect(() => {
     const searchMovie = async value => {
+      setIsLoader(true);
       try {
         const { results, total_results } = await getSearchMovies(value);
 
@@ -25,25 +28,26 @@ const Movies = () => {
 
         setMovies(results);
       } catch (error) {
-        console.log(error);
+        setError(error);
+      } finally {
+        setIsLoader(false);
       }
     };
-    //  }
     if (query) {
       searchMovie(query);
-      setValue(query);
     }
-  }, [query, setSearchParams, value]);
+  }, [query, setSearchParams]);
 
   const handleFormSubmit = value => {
     setSearchParams({ query: value.trim() });
-    setValue(value);
-    setMovies([]);
   };
   return (
     <div>
       <SearchMovies onSubmit={handleFormSubmit} />
-      <MoviesList movies={movies} />
+      {isLoader && <Loader />}
+      {error && <p>Opps...Sorry, something went wrong</p>}
+      {movies.length !== 0 && <MoviesList movies={movies} />}
+
       <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );

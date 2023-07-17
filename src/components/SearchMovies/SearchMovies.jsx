@@ -2,6 +2,7 @@ import { BsSearch } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { Form } from './SearchMovies.styled';
+import { PropTypes } from 'prop-types';
 
 export const SearchMovies = ({ onSubmit }) => {
   const [value, setValue] = useState('');
@@ -13,7 +14,7 @@ export const SearchMovies = ({ onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (value === '') {
+    if (value.trim() === '') {
       toast.error('Enter a value');
 
       return;
@@ -39,4 +40,8 @@ export const SearchMovies = ({ onSubmit }) => {
       </button>
     </Form>
   );
+};
+
+SearchMovies.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };

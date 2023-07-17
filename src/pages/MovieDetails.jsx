@@ -12,20 +12,26 @@ import {
   List,
   Info,
 } from './MovieDetails.styled';
+import { Loader } from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const [data, setData] = useState({});
+  const [isLoader, setIsLoader] = useState(false);
+  const [error, setError] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
   const backLinkLocation = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const movieDetailsAPI = async id => {
+      setIsLoader(true);
       try {
         const data = await getMovieDetails(id);
         setData(data);
       } catch (error) {
-        console.log(error);
+        setError(error);
+      } finally {
+        setIsLoader(false);
       }
     };
     movieDetailsAPI(movieId);
@@ -37,7 +43,10 @@ const MovieDetails = () => {
   const userScore = data.vote_average * 10;
 
   return (
-    <Container>
+    <>
+      {isLoader && <Loader />}
+      {error && <p>Opps...Sorry, something went wrong</p>}
+    {data && <Container>
       <Button to={backLinkLocation.current}>
         <BsChevronLeft />
       </Button>
@@ -46,7 +55,7 @@ const MovieDetails = () => {
         <img
           src={
             data.poster_path
-              ? `https:image.tmdb.org/t/p/w500/${data.poster_path}`
+              ? `https://image.tmdb.org/t/p/w500/${data.poster_path}`
               : defaultImg
           }
           alt={data.title}
@@ -78,10 +87,12 @@ const MovieDetails = () => {
           <Info to="reviews">Reviews</Info>
         </li>
       </List>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader/>}>
         <Outlet />
       </Suspense>
-    </Container>
+      
+    </Container>}
+    </>
   );
 };
 
